@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+    Feedback Search Results Interface
+    Author: Devall
+    Website: https://developers-alliance.com
+    Package: Devall_CustomerFeedback
+    Version: 1.0.0
+
+    This file defines the menu structure for the Customer Feedback module in Magento Admin.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="Devall_CustomerFeedback::feedback_main"
+            title="Customer Feedback"
+            translate="title"
+            module="Devall_CustomerFeedback"
+            resource="Devall_CustomerFeedback::feedback"
+            sortOrder="999"
+        />
+        <add
+            id="Devall_CustomerFeedback::feedback_view"
+            title="Manage Feedback"
+            translate="title"
+            module="Devall_CustomerFeedback"
+            resource="Devall_CustomerFeedback::feedback_view"
+            parent="Devall_CustomerFeedback::feedback_main"
+            action="customerfeedback/feedback/index"
+        />
+    </menu>
+</config>

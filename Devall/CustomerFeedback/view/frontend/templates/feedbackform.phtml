@@ -1,0 +1,38 @@
+<?php
+/**
+ * Customer Feedback Form Template
+ *
+ * This template renders the customer feedback form within the product details page.
+ * It initializes the JavaScript component for feedback submission and handles conditional rendering based on the module's configuration.
+ *
+ * @author Devall
+ * @website https://developers-alliance.com
+ * @package Devall_CustomerFeedback
+ * @version 1.0.0
+ */
+?>
+<?php /* @var $block Devall\CustomerFeedback\Block\FeedbackForm */ ?>
+
+<?php if ($block->isFeedbackEnabled()): ?>
+    <?php $productId = $block->getCurrentProduct()->getId(); ?>
+
+    <div id="feedback-section" data-bind="scope: 'feedbackComponent'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "#feedback-section": {
+                "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
+        }
+    }
+    </script>
+    <script type="text/javascript">
+        window.currentProductId = '<?= $productId ?>';
+        window.formKey = '<?= $block->getFormKey() ?>';
+        window.feedbackConfig = {
+            isEnabled: true,
+            productId: '<?= $productId ?>',
+            formKey: '<?= $block->getFormKey() ?>'
+        };
+    </script>
+<?php endif; ?>
