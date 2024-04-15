@@ -11,8 +11,8 @@ define([
             title: '',
             feedback: '',
             submitAnonymously: false,
-            productId: window.currentProductId || 0,
-            formKey: window.formKey || '',
+            productId: 0,
+            formKey: '',
             template: 'Devall_CustomerFeedback/feedback-form',
             isFormVisible: false
         },

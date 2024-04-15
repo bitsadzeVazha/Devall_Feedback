@@ -22,12 +22,18 @@
     <script type="text/x-magento-init">
         {
             "#feedback-section": {
-                "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "feedbackComponent": {
+                            "component": "Devall_CustomerFeedback/js/feedback-component",
+                            "productId": "<?= $block->escapeJs($productId) ?>",
+                    "formKey": "<?= $block->escapeJs($block->getFormKey()) ?>"
+                }
+            }
         }
     }
+}
     </script>
-    <script type="text/javascript">
-        window.currentProductId = '<?= $block->escapeJs($productId) ?>';
-        window.formKey = '<?= $block->escapeJs($block->getFormKey()) ?>';
-    </script>
+
+
 <?php endif; ?>
