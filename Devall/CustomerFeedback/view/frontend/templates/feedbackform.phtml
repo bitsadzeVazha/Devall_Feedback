@@ -27,12 +27,7 @@
     }
     </script>
     <script type="text/javascript">
-        window.currentProductId = '<?= $productId ?>';
-        window.formKey = '<?= $block->getFormKey() ?>';
-        window.feedbackConfig = {
-            isEnabled: true,
-            productId: '<?= $productId ?>',
-            formKey: '<?= $block->getFormKey() ?>'
-        };
+        window.currentProductId = '<?= $block->escapeJs($productId) ?>';
+        window.formKey = '<?= $block->escapeJs($block->getFormKey()) ?>';
     </script>
 <?php endif; ?>
