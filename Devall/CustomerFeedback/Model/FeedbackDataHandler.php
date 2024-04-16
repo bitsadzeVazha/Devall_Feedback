@@ -6,7 +6,7 @@ declare(strict_types=1);
  * Handles the data operations for customer feedback submission.
  *
  * @author Developers-Alliance team
- * Copyright (c) 2024 Developers-alliance (https:// www. developers-alliance. com)
+ * @Copyright (c) 2024 Developers-alliance (https:// www. developers-alliance. com)
  * @website https://developers-alliance.com
  * @package Devall_CustomerFeedback
  * @version 1.0.0
