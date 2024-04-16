@@ -11,7 +11,8 @@
         "magento/framework": "^103.0",
         "magento/module-catalog": "^103.0",
         "magento/module-ui": "^101.1",
-        "magento/module-backend": "^101.0"
+        "magento/module-backend": "^101.0",
+        "developersalliance/module-base": "*"
     },
     "autoload": {
         "files": [

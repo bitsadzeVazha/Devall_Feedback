@@ -3,7 +3,8 @@
 /**
  * Index Controller for Adminhtml Feedback Section
  *
- * @author Devall
+ * @author Developers-Alliance team
+ * Copyright (c) 2024 Developers-alliance (https:// www. developers-alliance. com)
  * @package Devall_CustomerFeedback
  * @version 1.0.0
  *

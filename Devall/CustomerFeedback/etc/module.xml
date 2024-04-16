@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <!--
     Module Configuration for Devall Customer Feedback
-    Author: Devall
+    Author: Developers-Alliance team
+    @copyright Copyright (c) 2024 Developers-alliance (https://www.developers-alliance.com)
     Website: https://developers-alliance.com
     Package: Devall_CustomerFeedback
     Version: 1.0.0
@@ -14,6 +15,7 @@
             <module name="Magento_Catalog"/>
             <module name="Magento_Backend" />
             <module name="Magento_Ui" />
+            <module name="DevAll_Base"/>
         </sequence>
     </module>
 </config>
