@@ -39,36 +39,48 @@ define([
             }
 
             var formData = {
-                title: this.title(),
-                feedback: this.feedback(),
-                product_id: this.productId,
-                submitAnonymously: this.submitAnonymously(),
-                form_key: this.formKey
+                feedback: {
+                    title: this.title(),
+                    feedback: this.feedback(),
+                    product_id: this.productId,
+                    anonymous: this.submitAnonymously()
+                }
             };
 
             $.ajax({
-                url: '/feedback/submit/save',
+                url: '/rest/V1/feedback/submit',
                 type: 'POST',
                 dataType: 'json',
-                data: formData,
+                data: JSON.stringify(formData),
+                contentType: "application/json",
                 showLoader: true,
                 success: function (response) {
+                    // Ensure the response is an object (this accounts for responses that may already be parsed JSON)
+                    if (typeof response === 'string') {
+                        try {
+                            response = JSON.parse(response);
+                        } catch (e) {
+                            console.error("Error parsing JSON response", e);
+                        }
+                    }
+                    alert({
+                        content: response.message
+                    });
                     if (response.success) {
-                        alert({
-                            content: response.message
-                        });
                         this.title('');
                         this.feedback('');
                         this.submitAnonymously(false);
-                    } else {
-                        alert({
-                            content: response.message
-                        });
                     }
                 }.bind(this),
-                error: function () {
+                error: function (xhr) {
+                    var errorMessage = 'There was an error submitting your feedback. Please try again.';
+                    if (xhr.status === 401) {
+                        errorMessage = 'You need to be logged in to submit feedback.';
+                    } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
                     alert({
-                        content: 'There was an error submitting your feedback. Please try again.'
+                        content: errorMessage
                     });
                 }
             });

@@ -12,8 +12,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="product.info.details">
-            <!-- Your feedback form block with updated sort_order -->
-            <block class="Devall\CustomerFeedback\Block\FeedbackForm"
+            <block class="Magento\Framework\View\Element\Template"
                    name="feedback_form.tab"
                    template="Devall_CustomerFeedback::feedbackform.phtml"
                    ifconfig="devall_feedback/settings/enabled"
@@ -31,6 +30,7 @@
                             </item>
                         </item>
                     </argument>
+                    <argument name="viewModel" xsi:type="object">Devall\CustomerFeedback\ViewModel\FeedbackFormViewModel</argument>
                 </arguments>
             </block>
         </referenceBlock>

@@ -41,8 +41,28 @@
         <columnsControls name="columns_controls"/>
         <filters name="listing_filters"/>
         <paging name="listing_paging" />
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <url path="customerfeedback/feedback/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                    <confirm>
+                        <title translate="true">Delete</title>
+                        <message translate="true">Are you sure you want to delete the selected feedback(s)?</message>
+                    </confirm>
+                </settings>
+            </action>
+        </massaction>
     </listingToolbar>
     <columns name="customerfeedback_feedback_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>55</resizeDefaultWidth>
+            </settings>
+        </selectionsColumn>
         <!-- ID -->
         <column name="id" sortOrder="10">
             <settings>

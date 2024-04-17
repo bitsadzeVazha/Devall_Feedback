@@ -2,16 +2,18 @@
 declare(strict_types=1);
 
 /**
- * Feedback Management Class
- *
- * This class implements the FeedbackManagementInterface and is responsible for managing
- * feedback submissions via API. It defines the method required to submit customer feedback.
+ * Feedback Management Model
  *
  * @author Developers-Alliance team
  * @Copyright (c) 2024 Developers-alliance (https:// www. developers-alliance. com)
  * @website https://developers-alliance.com
  * @package Devall_CustomerFeedback
  * @version 1.0.0
+ *
+ * Manages the handling and processing of customer feedback. This includes validation,
+ * saving feedback to the repository, and notifying administrative users upon submission.
+ * Requires user to be logged in for feedback submission.
+ *
  */
 
 namespace Devall\CustomerFeedback\Model;
@@ -19,6 +21,7 @@ namespace Devall\CustomerFeedback\Model;
 use Devall\CustomerFeedback\Api\FeedbackManagementInterface;
 use Devall\CustomerFeedback\Api\Data\FeedbackInterface;
 use Devall\CustomerFeedback\Api\FeedbackRepositoryInterface;
+use Devall\CustomerFeedback\Model\FeedbackNotifier;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Escaper;
@@ -27,42 +30,54 @@ use Magento\Customer\Model\Session as CustomerSession;
 class FeedbackManagement implements FeedbackManagementInterface
 {
     /**
-     * @var FeedbackRepositoryInterface Holds the repository instance for saving feedback data.
+     * @var FeedbackRepositoryInterface
      */
     protected $feedbackRepository;
 
     /**
-     * @var CustomerSession Manages customer session, used to check if the user is logged in.
+     * @var CustomerSession
      */
     protected $customerSession;
 
     /**
-     * @var Escaper Utilized to escape HTML characters in user input to prevent XSS attacks.
+     * @var Escaper
      */
     protected $escaper;
 
     /**
-     * Initializes the dependencies required to manage feedback submissions.
+     * @var FeedbackNotifier
+     */
+    protected $feedbackNotifier;
+
+    /**
+     * Constructor
      *
-     * @param FeedbackRepositoryInterface $feedbackRepository Repository to save feedback data.
-     * @param CustomerSession $customerSession Session manager to handle user login state.
-     * @param Escaper $escaper Utility to escape HTML entities in user inputs.
+     * @param FeedbackRepositoryInterface $feedbackRepository
+     * @param CustomerSession $customerSession
+     * @param Escaper $escaper
+     * @param FeedbackNotifier $feedbackNotifier
      */
     public function __construct(
         FeedbackRepositoryInterface $feedbackRepository,
         CustomerSession $customerSession,
-        Escaper $escaper
+        Escaper $escaper,
+        FeedbackNotifier $feedbackNotifier
     ) {
         $this->feedbackRepository = $feedbackRepository;
         $this->customerSession = $customerSession;
         $this->escaper = $escaper;
+        $this->feedbackNotifier = $feedbackNotifier;
     }
 
     /**
-     * Submits feedback data after validating user login status and sanitizing input data.
+     * Submits a feedback
      *
-     * @param FeedbackInterface $feedback Feedback object containing data to be processed.
-     * @return string JSON encoded result with success status and message.
+     * Validates and submits customer feedback. If user is not logged in, an exception is thrown.
+     * Escapes HTML entities in title and content to prevent XSS attacks. Processes feedback
+     * for anonymity based on user choice. Notifies the appropriate parties upon successful submission.
+     *
+     * @param FeedbackInterface $feedback The feedback entity containing all necessary information.
+     * @return string JSON encoded success or failure message.
      */
     public function submitFeedback(FeedbackInterface $feedback)
     {
@@ -93,9 +108,12 @@ class FeedbackManagement implements FeedbackManagementInterface
             }
 
             $this->feedbackRepository->save($feedback);
+            $this->feedbackNotifier->notify($feedback);
             return json_encode(['success' => true, 'message' => 'Feedback submitted successfully']);
         } catch (LocalizedException $e) {
             return json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
     }
 }
+
+
