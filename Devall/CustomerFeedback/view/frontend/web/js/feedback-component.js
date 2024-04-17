@@ -55,7 +55,6 @@ define([
                 contentType: "application/json",
                 showLoader: true,
                 success: function (response) {
-                    // Ensure the response is an object (this accounts for responses that may already be parsed JSON)
                     if (typeof response === 'string') {
                         try {
                             response = JSON.parse(response);
