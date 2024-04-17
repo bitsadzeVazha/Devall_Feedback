@@ -27,9 +27,8 @@
     </type>
 
     <preference for="Devall\CustomerFeedback\Api\Data\FeedbackInterface" type="Devall\CustomerFeedback\Model\Feedback" />
-
     <preference for="Devall\CustomerFeedback\Api\FeedbackRepositoryInterface" type="Devall\CustomerFeedback\Model\FeedbackRepository" />
-
     <preference for="Devall\CustomerFeedback\Api\Data\FeedbackSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Devall\CustomerFeedback\Api\FeedbackManagementInterface" type="Devall\CustomerFeedback\Model\FeedbackManagement" />
 
 </config>
