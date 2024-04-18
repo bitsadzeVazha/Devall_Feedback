@@ -32,8 +32,7 @@ if ($viewModel->isFeedbackEnabled()): ?>
                     "components": {
                         "feedbackComponent": {
                             "component": "Devall_CustomerFeedback/js/feedback-component",
-                            "productId": "<?= $block->escapeJs($productViewBlock->getProduct()->getId()) ?>",
-                        "formKey": "<?= $block->escapeJs($viewModel->getFormKey()) ?>"
+                            "productId": "<?= $block->escapeJs($productViewBlock->getProduct()->getId()) ?>"
                     }
                 }
             }
