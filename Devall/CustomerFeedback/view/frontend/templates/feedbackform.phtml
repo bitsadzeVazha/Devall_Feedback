@@ -21,7 +21,6 @@
 $viewModel = $block->getData('viewModel');
 $productViewBlock = $block->getLayout()->getBlock('product.info');
 if ($viewModel->isFeedbackEnabled()): ?>
-
     <div id="feedback-section" data-bind="scope: 'feedbackComponent'">
         <!-- ko template: getTemplate() --><!-- /ko -->
     </div>
